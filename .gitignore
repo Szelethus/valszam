@@ -1,0 +1,9 @@
+#LaTeX temp files
+*.log
+*.aux
+*.out
+*.gz
+*.pdf
+*.toc
+*.zip
+anal3/book_compiler/*

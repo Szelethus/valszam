@@ -1,0 +1,225 @@
+\documentclass[a4paper,11.5pt]{article}
+\usepackage[textwidth=170mm, textheight=230mm, inner=20mm, top=20mm, bottom=30mm]{geometry}
+\usepackage[normalem]{ulem}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\PassOptionsToPackage{defaults=hu-min}{magyar.ldf}
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.10}
+\usepgfplotslibrary{fillbetween}
+\usepackage[magyar]{babel}
+\usepackage{amsmath, amsthm,amssymb,paralist,array, ellipsis, graphicx, float, bigints,tikz}
+%\usepackage{marvosym}
+
+\makeatletter
+\renewcommand*{\mathellipsis}{%
+	\mathinner{%
+		\kern\ellipsisbeforegap%
+		{\ldotp}\kern\ellipsisgap
+		{\ldotp}\kern\ellipsisgap%
+		{\ldotp}\kern\ellipsisaftergap%
+	}%
+}
+\renewcommand*{\dotsb@}{%
+	\mathinner{%
+		\kern\ellipsisbeforegap%
+		{\cdotp}\kern\ellipsisgap%
+		{\cdotp}\kern\ellipsisgap%
+		{\cdotp}\kern\ellipsisaftergap%
+	}%
+}
+\renewcommand*{\@cdots}{%
+	\mathinner{%
+		\kern\ellipsisbeforegap%
+		{\cdotp}\kern\ellipsisgap%
+		{\cdotp}\kern\ellipsisgap%
+		{\cdotp}\kern\ellipsisaftergap%
+	}%
+}
+\renewcommand*{\ellipsis@default}{%
+	\ellipsis@before
+	\kern\ellipsisbeforegap
+	.\kern\ellipsisgap
+	.\kern\ellipsisgap
+	.\kern\ellipsisgap
+	\ellipsis@after\relax}
+\renewcommand*{\ellipsis@centered}{%
+	\ellipsis@before
+	\kern\ellipsisbeforegap
+	.\kern\ellipsisgap
+	.\kern\ellipsisgap
+	.\kern\ellipsisaftergap
+	\ellipsis@after\relax}
+\AtBeginDocument{%
+	\DeclareRobustCommand*{\dots}{%
+		\ifmmode\@xp\mdots@\else\@xp\textellipsis\fi}}
+\def\ellipsisgap{.1em}
+\def\ellipsisbeforegap{.05em}
+\def\ellipsisaftergap{.05em}
+\makeatother
+
+\usepackage{hyperref}
+\hypersetup{
+	colorlinks = true	
+}
+
+\DeclareMathOperator{\Int}{int}
+\DeclareMathOperator{\tg}{tg}
+\DeclareMathOperator{\ctg}{ctg}
+\DeclareMathOperator{\Th}{th}
+\DeclareMathOperator{\sh}{sh}
+\DeclareMathOperator{\ch}{ch}
+\DeclareMathOperator{\arsh}{arsh}
+\DeclareMathOperator{\arch}{arch}
+\DeclareMathOperator{\arth}{arth}
+\DeclareMathOperator{\arcth}{arcth}
+\DeclareMathOperator{\grad}{grad}
+\DeclareMathOperator{\arc}{arc}
+\DeclareMathOperator{\arctg}{arc tg}
+\DeclareMathOperator{\arcctg}{arc ctg}
+\newcommand{\norm}[1]{\left\lVert#1\right\rVert}
+
+\begin{document}
+	%%%%%%%%%%%RÖVIDÍTÉSEK%%%%%%%%%%
+	\setlength\parindent{0pt}
+	\def\a{\textbf{a}}
+	\def\b{\textbf{b}}
+	\def\N{\hskip 10 true mm}
+	\def\a{\textbf{a}}
+	\def\b{\textbf{b}}
+	\def\c{\textbf{c}}
+	\def\d{\textbf{d}}
+	\def\e{\textbf{e}}
+	\def\gg{$\gamma$}
+	\def\vi{\textbf{i}}
+	\def\jj{\textbf{j}}
+	\def\kk{\textbf{k}}
+	\def\fh{\overrightarrow}
+	\def\l{\lambda}
+	\def\m{\mu}
+	\def\v{\textbf{v}}
+	\def\0{\textbf{0}}
+	\def\s{\hspace{0.2mm}\vphantom{\beta}}
+	\def\Z{\mathbb{Z}}
+	\def\Q{\mathbb{Q}}
+	\def\R{\mathbb{R}}
+	\def\C{\mathbb{C}}
+	\def\N{\mathbb{N}}
+	\def\Rn{\mathbb{R}^{n}}
+	\def\Ra{\overline{\mathbb{R}}}
+	\def\sume{\displaystyle\sum_{n=1}^{+\infty}}
+	\def\sumn{\displaystyle\sum_{n=0}^{+\infty}}
+	\def\biz{\emph{Bizonyítás:\ }}
+	\def\narrow{\underset{n\rightarrow+\infty}{\longrightarrow}}
+	\def\limn{\displaystyle\lim_{n\to +\infty}}
+	%	\def\definition{\textbf{Definíció:\ }}
+	%	\def\theorem{\textbf{Tétel:\ }}
+	%\def\note{\emph{Megjegyzés:\ }}
+	%\def\example{\textbf{Példa:\ }} 
+	
+	\theoremstyle{definition}
+	\newtheorem{theorem}{Tétel}[subsubsection] % reset theorem numbering for each chapter
+	
+	\theoremstyle{definition}
+	\newtheorem{definition}[theorem]{Definíció} % definition numbers are dependent on theorem numbers
+	\newtheorem{example}[theorem]{Példa} % same for example numbers
+	\newtheorem{exercise}[theorem]{Házi feladat} % same for example numbers
+	\newtheorem{note}[theorem]{Megjegyzés} % same for example numbers
+	\newtheorem{task}[theorem]{Feladat} % same for example numbers
+	\newtheorem{revision}[theorem]{Emlékeztető} % same for example numbers
+	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+	\begin{center}
+		{\LARGE\textbf{Valószínűségszámítás}}
+		\smallskip
+		
+		{\Large Gyakorlati jegyzet}
+		
+		\smallskip
+		1. óra.
+	\end{center}
+	A jegyzetet \textsc{Umann} Kristóf készítette dr. \textsc{Prokaj} Vilmos gyakorlatán. (\today)
+	
+	\section{Bevezető}
+	\begin{compactitem}
+		\item Házi feladatok és eredmények: \url{prokajvilmos.web.elte.hu}
+		\item Október 16. első ZH
+		\item December 11. második ZH
+		\item ZH információk a honlapon megtalálhatóak.
+		\item 40 pontból 13 pont szükséges a ketteshez egy adott ZH-n.
+		\item 31 pont kell a ketteshez allzusammen.
+		\item Vannak beadható feladatok is extra pontokért (3 darabonként, részpontok nincsenek).
+		\item Pluszpontokkal LEGFELJEBB 2 jegyet lehet javítani.
+		\item Amennyiben a ZH-k sikeresek, de a 31 pont még nincs meg, akkor már számítanak a pluszpontok.
+		\item Ezen kívül van szimulációs házi feladat is, erről a honlapon, R nyelvben lesz.
+		\item Minden meg nem oldott feladat házi feladat.
+	\end{compactitem}
+	\section{Első gyakorlat}
+	\begin{task}
+		(Lottószelvény)
+		\begin{itemize}
+			\item $\varOmega$ eseménytér - A lehetséges kimenetelek halmaza. Pl.:
+			
+			\[ \varOmega=\big\{A\subset\{1,\ldots,90 \},\quad  |A|=5\big\} \]
+			\[ |\varOmega|=\binom{90}{5}\approx43\cdot10^6 \]
+			\item  $P$ valószínűség. Mindig egy eseménynek van valószínűsége. Az esemény az $\varOmega$ részhalmaza.
+			\[ P(\text{öt találat})=\frac{1}{\binom{90}{5}} \]
+			\item Az eseményeket az \textbf{ABC elejéről, nagy betűvel} jelöljük.
+			\[ B=\{\text{öt találat} \}\quad P(B)=? \]
+			Mit jelent az, hogy egy érme feldobása után $\frac{1}{2}$ az valószínűsége a fejre esésnek? \textbf{Sok kísérletben relatív gyakoriság a valszínűség körül ingadozik.} Ez a nagy számok törvénye.
+			\item $\emptyset$ lehetetlen esemény: $P(\emptyset)=0$
+			\item $\varOmega$ biztos esemény: $P(\varOmega)=1$
+			\item $A,B$ egymást kizáró események, $A\cap B=\emptyset$
+			\item $A,B$ esemény, $P(A\cup B)=P(A)+P(B)$. HA $A_1,\ldots,A_n$ diszjunk események, akkor $P(\bigcap A_n)=\sum P(A_n)$
+			\item Ha minden lehetséges kimenetel \textbf{egyformán valószínű}, akkor
+			\[ P(A)=\sum_{\omega\in A} P(\{\omega \}) \]
+			így
+			\[ 1=P(A)=\sum_{\omega\in \varOmega} P(\{\omega \})=|\varOmega|\cdot \overbrace{P(\{\omega \})}^\frac{1}{|\varOmega|} \]
+			\item Ha minden kimenetel ugyanolyan valószínű, akkor nem kell mást csinálni, mind a kedvező esetek számát elosztjuk az összes eset számával. 
+			\[ P(\text{4 találat})=\frac{\binom{5}{4}\cdot\binom{85}{1}}{\binom{90}{5}} \]
+			Játsszunk az 1,2,3,4,5 számokkal.
+			\[ P(\text{3 találat})=\frac{\binom{5}{3}\cdot\binom{85}{2}}{\binom{90}{5}} \]
+			\[ P(k\text{ találat})=\frac{\binom{5}{k}\cdot\binom{85}{5-k}}{\binom{90}{5}},\quad \sum^5_{k=0}P(k\text{ találat})=1 \]
+			\[ \sum^5_{k=0}\binom{5}{k}\binom{85}{5-k}=\binom{90}{5} \]
+			\[ \sum_k\binom{N}{k}\binom{M}{n-k}=\binom{N+M}{n} \]
+			Ennek egy pascal háromszöghöz köthető ismerősebb, speciális esete:
+			\[ \binom{1}{0}\binom{M}{n}+\binom{1}{1}\binom{M}{n-1}=\binom{M+1}{n} \]
+		\end{itemize}
+	\end{task}
+	\begin{task}
+		Jobban megéri 1 héten 2 szelványt játszani, mint 1-1 szelvényt 1-1 héten, mert az első esetben közel dupla eséllyel indulunk:
+		\[ 1.) \quad \frac{2}{\binom{90}{5}}\qquad 2.)\quad  \frac{1}{\binom{90}{5}}+\frac{1}{\binom{90}{5}}-\frac{1}{\binom{90}{5}}\cdot\frac{1}{\binom{90}{5}} \]
+		Az elsőnél a kedvező esetek száma egyértelműen kettő, így a formulája adott.
+		
+		A másodiknál az, hogy az első héten teli találatunk van, annak za esélye $\frac{1}{\binom{90}{5}}$, a második héten szintén. Azonban annak is van egy nagyon kis esélye, hogy mindkét héten lottó ötösünk lesz, ezt ki kell vonni.
+		\[ |\varOmega|=\binom{90}{5}^2 \]
+		\[ \varOmega=\{ \{x_1<\ldots<x_5,\quad y_1<\ldots<y_5\}, \quad x_i,y_i\in\{1,\ldots,5 \}\} \]
+		\[ A=\{ (1,2,3,4,5,y1<\ldots<y_5) \} \cup\{ (x_1<\ldots<x_5,1,2,3,4,5) \} \]
+		Ennek magyarázata hogy ha kihúzzuk az első héten az 5 számot, és a második héten bármit, vagy ha első héten kihúzunk bármit, és a másodikat kihúzzuk. Ez a két halmaz nem diszjunkt, ugyanis van olyan eset amikor mindkét héten nyerünk.
+		
+		Ez Venn diagrammal ábrázolható így: $A=B\cap C$,\quad $|A|=|B|+|C|-|B\cap C|ß$
+		
+		A fenti képletet, mely megadta a második eset valószínűségét, leírhatjuk általánosan így is:
+		\[ P(A)=1-P(A^c) \]
+		Ahol $A^c$ az $A$ komplementere, konkrét esetben azok az esetek, amikor egyik héten sem húztunk ötöst. Ha $n$ héten keresztül játszunk, akkor
+		\[ \varOmega=\binom{90}{5}^n, \quad |A^c|=\left(\binom{90}{5}-1\right)^n \]
+		\[ P(A)=1-\left(1-\frac{1}{\binom{90}{5}}\right)^n\quad \Rightarrow\quad P(A)=1-\left(1-\binom{1}{n}\right)^n\approx1-e^{-1} \]
+		Végszóként, az alábbi két esetet kell összeahasonlkítani:
+		\[ \frac{n}{\binom{90}{5}}> 1-\left(1-\frac{1}{\binom{90}{5}}\right)^n \] 
+		\[ 1-\frac{n}{\binom{90}{5}}\leq \left(1-\frac{1}{\binom{90}{5}}\right)^n \] 
+		És ez lényegében a Bernoulli egyenlőtlenség, ha $h:=\frac{1}{\binom{90}{5}}$.
+	\end{task}
+	\begin{task}
+		(vázlat) 
+		\[ \{FF, ZZ, PP, FZ, FP, ZP\} \]
+		vagy, másképpen felírva, úgy hozzállva hogy 1,\ldots,14 golyónk van, ezeket tudjuk kihúzni:
+		\[ \{(1,2),\ldots,(13,14) \} \]
+		A feladat második részére a megoldás $\binom{14}{2}$
+	\end{task}
+	\begin{task}
+		(vázlat)
+		
+		A megoldás $\frac{4!}{7!}=\frac{1}{|\varOmega|}$. $\varOmega$ = kirakható szavak, $|\varOmega|=\frac{7!}{4!1!1!1!}$
+		
+		Másik megoldási módszer: $\frac{4}{7}\cdot\frac{1}{6}\cdot\frac{3}{5}\ldots=\frac{4\cdot1\cdot3\cdot1\cdot2\cdot1\cdot1}{7!}$
+	\end{task}
+\end{document}
